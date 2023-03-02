@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Members{% endblock %}
+{% block content %}
+<h1 class="mt-5">Outdoor Adventuring Club Members</h1>
+<div class="container">
+    <table class="table table-hover">
+        <thread>
+            <tr>
+                {% for row in member_header[0] %}
+                    <th scope="col">{{row}}</th>
+                {% endfor %}
+            </tr>
+        </thread>
+        <tbody>
+            {% for m in members_info %}
+            <tr>
+                <td>{{members_info[m]['Name']}}</td>
+                <td>{{members_info[m]['DoB']}}</td> 
+                <td>{{members_info[m]['Email']}}</td>
+                <td>{{members_info[m]['Address']}}</td> 
+                <td>{{members_info[m]['Phone']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
