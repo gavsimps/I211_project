@@ -1,11 +1,18 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-    <h1 class="mt-5">Outdoor Adventures</h1>
-    <p>Welcome! This is the homepage for <b>Outdoor Adventures</b>!</p>
-    <p>We plan and participate in monthly trips across the country and this site is where we organize our trips!</p>
-    <p>The pic below was taken at out 2021 trip to Ohio!</p>
-    <img class="img-fluid" src="{{url_for('static',filename='images/landfill.jpg')}}" alt="breathtaking view">
+    <div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="{{url_for('static',filename='images/landfill.jpg')}}" alt="breathtaking view" width="400" height="200">
+    <h1 class="display-5 fw-bold">Outdoor Adventures</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">Welcome! This is the homepage for <b>Outdoor Adventures</b>!</p>
+        <p class="lead mb-4">We plan and participate in monthly trips across the country and this site is where we organize our trips!</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a class="btn btn-primary btn-lg px-4 gap-3" href="{{url_for('trips')}}" role="button">See Trips!</a>
+        <a class="btn btn-primary btn-lg px-4 gap-3" href="{{url_for('members')}}" role="button">See Members!</a>
+        </div>
+    </div>
+    </div>
 {% endblock %}
 
 

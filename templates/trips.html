@@ -1,25 +1,26 @@
 {% extends "base.html" %}
 {% block title %}Trips{% endblock %}
 {% block content %}
-{% block content %}
 <h1 class="mt-5">Outdoor Adventures Company Trips</h1>
 <div class="container">
     <table class="table table-hover">
         <thread>
             <tr>
-                {% for row in member_header[0] %}
-                    <th scope="col">{{row}}</th>
-                {% endfor %}
+                <th scope="col">Trip Name</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">Trip Length</th>
+                <th scope="col">Location</th>
+                <th scope="col">Cost</th>        
             </tr>
         </thread>
         <tbody>
-            {% for m in members_info %}
+            {% for trp in trips_info %}
             <tr>
-                <td>{{members_info[m]['Name']}}</td>
-                <td>{{members_info[m]['DoB']}}</td> 
-                <td>{{members_info[m]['Email']}}</td>
-                <td>{{members_info[m]['Address']}}</td> 
-                <td>{{members_info[m]['Phone']}}</td>
+                <td><a href="{{url_for('trips',trip_info=trip_info)}}">{{trp['name']}}</a></td>
+                <td>{{trp['start_date']}}</td> 
+                <td>{{trp['length']}}</td>
+                <td>{{trp['location']}}</td> 
+                <td>{{trp['cost']}}</td>
             </tr>
             {% endfor %}
         </tbody>

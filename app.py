@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for
 import csv
+import datetime
 
 app = Flask(__name__)
 
@@ -11,16 +12,15 @@ with open('members.csv','r') as csvfile:
 
 with open('members.csv','r') as csvfile:
     data = csv.DictReader(csvfile)
-    members_info = {row['Name']:{'Name':row['Name'],'DoB':row['DoB'],'Email':row['Email'],
-    'Address':row['Address'],'Phone':row['Phone']} for row in data}
-    
-with open('trips.csv','r') as csvfile:
-    read = csv.reader(csvfile)
-    trip_head = []
-    for row in read:
-        trip_head.append(row)
-    trips_info= {}
+    membing = list(data)
+    member_info = sorted(membing, key = lambda x:x['DoB'])
 
+
+    
+with open('trips/trips.csv','r') as csvfile:
+    data = csv.DictReader(csvfile)
+    tripping = list(data)
+    trips_info = sorted(tripping, key = lambda x:x['start_date'])
 
 
 @app.route('/')
@@ -29,8 +29,14 @@ def index():
 
 @app.route('/members')
 def members():
-    return render_template('members.html',members_info=members_info,member_header=member_header)
+    return render_template('members.html',member_info=member_info,member_header=member_header)
 
 @app.route('/trips')
-def trips():
-    return render_template('trips.html')
+@app.route('/trips/<trip_id>')
+def trips(trip_id=None):
+    print(trip_id)
+    if trip_id in trips_info:
+        trip_info = trips_info[trip_id]
+        return render_template('trip.html',trip_info=trip_info)
+    else:
+        return render_template('trips.html',trips_info=trips_info)

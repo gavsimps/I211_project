@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Trip Info{% endblock %}
+{% block content %}
+    <h1 class="mt-5">{{trips_info[name]}}</h1>
+    <table>
+        <tr>
+            <th>Start Date:</th><td>{{trips_info[start_date]}}</td>
+        </tr>
+    </table>
+{% endblock %}

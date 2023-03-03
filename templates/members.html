@@ -12,13 +12,13 @@
             </tr>
         </thread>
         <tbody>
-            {% for m in members_info %}
+            {% for m in member_info %}
             <tr>
-                <td>{{members_info[m]['Name']}}</td>
-                <td>{{members_info[m]['DoB']}}</td> 
-                <td>{{members_info[m]['Email']}}</td>
-                <td>{{members_info[m]['Address']}}</td> 
-                <td>{{members_info[m]['Phone']}}</td>
+                <td>{{m['Name']}}</td>
+                <td>{{m['DoB']}}</td> 
+                <td>{{m['Email']}}</td>
+                <td>{{m['Address']}}</td> 
+                <td>{{m['Phone']}}</td>
             </tr>
             {% endfor %}
         </tbody>
