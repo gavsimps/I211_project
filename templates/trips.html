@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Trips{% endblock %}
 {% block content %}
-<h1 class="mt-5">Outdoor Adventures Company Trips</h1>
-<div class="container">
+<h1 class="mt-5" padding-top="50">Outdoor Adventures Company Trips</h1>
+<div class="container" padding-top="25">
     <table class="table table-hover">
         <thread>
             <tr>
@@ -16,7 +16,7 @@
         <tbody>
             {% for trp in trips_info %}
             <tr>
-                <td><a href="{{url_for('trips',trip_info=trip_info)}}">{{trp['name']}}</a></td>
+                <td><a href="{{url_for('trip', trip_id=trips_info.index(trp))}}">{{trp['name']}}</a></td>
                 <td>{{trp['start_date']}}</td> 
                 <td>{{trp['length']}}</td>
                 <td>{{trp['location']}}</td> 

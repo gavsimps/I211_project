@@ -1,10 +1,28 @@
 {% extends "base.html" %}
 {% block title %}Trip Info{% endblock %}
 {% block content %}
-    <h1 class="mt-5">{{trips_info[name]}}</h1>
-    <table>
+    <h1 class="mt-5">{{trip_page['name']}}</h1>
+    <table class="table">
         <tr>
-            <th>Start Date:</th><td>{{trips_info[start_date]}}</td>
+            <th>Start Date:</th><td padding-left="50px">{{trip_page['start_date']}}</td>
+        </tr>
+        <tr>
+            <th>Trip Length:</th><td>{{trip_page['length']}}</td>
+        </tr>
+        <tr>
+            <th>Activity Level:</th><td>{{trip_page['level']}}</td>
+        </tr>
+        <tr>
+            <th>Location:</th><td>{{trip_page['location']}}</td>
+        </tr>
+        <tr>
+            <th>Cost:</th><td>{{trip_page['cost']}}</td>
+        </tr>
+        <tr>
+            <th>Trip Leader:</th><td>{{trip_page['leader']}}</td>
+        </tr>
+        <tr>
+            <th>Description:</th><td>{{trip_page['description']}}</td>
         </tr>
     </table>
 {% endblock %}
