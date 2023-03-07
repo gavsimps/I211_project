@@ -1,23 +1,26 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect
 import csv
 import datetime
 
 app = Flask(__name__)
 
-with open('members.csv','r') as csvfile:
+MEMBER_PATH = app.root_path + '/members.csv'
+TRIP_PATH = app.root_path + '/trips.csv'
+
+with open(MEMBER_PATH,'r') as csvfile:
     lines = csv.reader(csvfile)
     member_header = []
     for row in lines:
         member_header.append(row)
 
-with open('members.csv','r') as csvfile:
+with open(MEMBER_PATH,'r') as csvfile:
     data = csv.DictReader(csvfile)
     membing = list(data)
     member_info = sorted(membing, key = lambda x:x['DoB'])
 
 
     
-with open('trips/trips.csv','r') as csvfile:
+with open(TRIP_PATH,'r') as csvfile:
     data = csv.DictReader(csvfile)
     tripping = list(data)
     trips_info = sorted(tripping, key = lambda x:x['start_date'])
