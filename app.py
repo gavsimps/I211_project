@@ -39,6 +39,10 @@ def members():
 def trips():
     return render_template('trips.html',trips_info=trips_info)
 
+@app.route('/trips/create')
+def add_trip():
+    return render_template('trip_form.html')
+
 @app.route('/trips/<trip_id>')
 def trip(trip_id=None):
     if trip_id == trip_id:
@@ -46,3 +50,7 @@ def trip(trip_id=None):
         return render_template('trip.html',trip_page=trip_page)
     else:
         return render_template('trips.html',trips_info=trips_info)
+    
+@app.route('/trips/<trip_id>/edit')
+def edit_trip():
+    return render_template('trip_form.html')
