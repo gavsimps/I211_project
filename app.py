@@ -35,13 +35,29 @@ def index():
 def members():
     return render_template('members.html',member_info=member_info,member_header=member_header)
 
+@app.route('/members/add', methods=['GET','POST'])
+def add_member():
+    # if request.method == 'POST':
+    #     memberadd = {}
+    #     memberadd['form1'] = request.form['name']
+        
+    #     print(memberadd)
+    #     return render_template('members.html')
+    
+    # else:    
+    return render_template('add_member.html')
+
+
+
+
+
 @app.route('/trips')
 def trips():
     return render_template('trips.html',trips_info=trips_info)
 
-@app.route('/trips/create')
+@app.route('/trips/add', methods=['GET','POST'])
 def add_trip():
-    return render_template('trip_form.html')
+    return render_template('add_trip.html')
 
 @app.route('/trips/<trip_id>')
 def trip(trip_id=None):

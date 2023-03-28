@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Add Trip{% endblock %}
+{% block content %}
+<!--Add a new trip
+text boxes
+    trip name, trip location
+drop down
+    length, difficulty
+calendar
+    trip date
+text boxes
+    cost, leader, desc.
+2 buttons: save, reset-->
+<div class="container-fluid mx-auto">
+    <h1 class="mt-5">Add a New Trip</h1>
+    <div class="container ">
+        <form class="form-inline" action="{{url_for('add_trip')}}" method="POST" name="member_form">
+            <table>
+                <tr>   
+                    <div class="form-group mb-2">
+                        <th><label for="name" class="sr-only">Trip Name:</label></th>    
+                        <td><input type="text" style="width: 500px" id="name" name="name"></td>
+                    </div>
+                </tr>
+                
+                <tr>
+                    <div class="form-group mb-2">
+                        <th><label for="locat" class="sr-only">Trip Location:</label></th>
+                        <td><input type="text" style="width: 500px" id="locat" name="locat"></td>
+                    </div>
+                </tr>
+
+                <tr>
+                    <div class="dropdown">
+                        <th><label for="length" class="sr-only">Trip Length:</label></th>
+                        <td>
+                            <select class="form-control" style="border-color: black;">
+                                <option>1 day</option>
+                                <option>2 days</option>
+                                <option>3 days</option>
+                                <option>4 days</option>
+                                <option>5 days</option>
+                                <option>6 days</option>
+                                <option>1 week+</option>
+                            </select>
+                        </td>
+                    </div>
+                </tr>
+
+                <tr>
+                    <div class="dropdown">
+                        <th><label for="level" class="sr-only">Activity Level:</label></th>
+                        <td>
+                            <select class="form-control" style="border-color: black;">
+                                <option>Easy</option>
+                                <option>Intermediate</option>
+                                <option>Hard</option>
+                                <option>Intense</option>
+                                <option>Certain Death</option>
+                            </select>
+                        </td>
+                    </div>
+                </tr>
+
+                <tr>
+                    <div class="form-group mb-2">
+                        <th><label for="start" class="sr-only">Start Date:</label></th>
+                        <td><input type="date" id="start" name="start"></td>
+                    </div>
+                </tr>
+
+                <tr>
+                    <div class="form-group mb-2">
+                        <th><label for="cost" class="sr-only">Cost:</label></th>
+                        <td><input type="text" style="width: 500px" id="cost" name="cost"></td>
+                    </div>
+                </tr>
+
+                <tr>
+                    <div class="form-group mb-2">
+                        <th><label for="leader" class="sr-only">Trip Leader:</label></th>
+                        <td><input type="text" style="width: 500px" id="leader" name="leader"></td>
+                    </div>
+                </tr>
+
+                <tr>
+                    <th><label for="desc" style="vertical-align: text-top">Description:</label></th>
+                    <td><input type="text" style="width: 500px;height: 200px" id="desc" name="desc"></td>   
+                </tr>
+            </table>
+            <button type="submit" value="Submit">Save</button>
+            <button type="reset" value="Reset">Reset</button>
+        </form>
+    </div>
+</div>
+
+<!-- will be called for editing
+the boxes will be filled out with trip ino to be changed-->
+{% endblock %}

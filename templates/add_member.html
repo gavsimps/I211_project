@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}New Member{% endblock %}
+{% block content %}
+<!--add a new member
+text boxes
+    namy, addy, email, phone
+calendar
+    dob
+2 buttons: save, reset-->
+<div class="container-fluid mx-auto">
+    <h1 class="mt-5">Add a New Member</h1>
+    <div class="container ">
+        <form class="form-inline" action="{{url_for('add_member')}}" method="POST" name="member_form">
+            <table>
+                <tr>   
+                    <div class="form-group mb-2">
+                        <th><label for="name" class="sr-only">Full Name:</label></th>    
+                        <td><input type="text" id="name" name="name"></td>
+                    </div>
+                </tr>
+                
+                <tr>
+                    <div class="form-group mb-2">
+                        <th><label for="addy" class="sr-only">Address:</label></th>
+                        <td><input type="text" id="addy" name="addy"></td>
+                    </div>
+                </tr>
+
+                <tr>
+                    <div class="form-group mb-2">
+                        <th><label for="email" class="sr-only">Email:</label></th>
+                        <td><input type="text" id="email" name="email"></td>
+                    </div>
+                </tr>
+
+                <tr>
+                    <div class="form-group mb-2">
+                        <th><label for="phone" class="sr-only">Phone:</label></th>
+                        <td><input type="text" id="phone" name="phone"></td>
+                    </div>
+                </tr>
+
+                <tr>
+                    <div class="form-group mb-2">
+                        <th><label for="dob" class="sr-only">DOB:</label></th>
+                        <td><input type="date" id="dob" name="dob"></td>
+                    </div>
+                </tr>
+            </table>
+            
+            <button type="submit" value="Submit">Save</button>
+            <button type="reset" value="Reset">Reset</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
