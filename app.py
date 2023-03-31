@@ -73,7 +73,7 @@ def index():
 # MEMBERS
 @app.route('/members')
 def members():
-    member_info = get_members()
+    member_info = sorted(get_members(), key = lambda x:x['DoB'])
     return render_template('members.html',member_info=member_info,member_header=member_header)
 
 @app.route('/members/add', methods=['GET','POST'])
@@ -105,7 +105,7 @@ def add_member():
 # TRIPS
 @app.route('/trips')
 def trips():
-    trips_info = get_trips()
+    trips_info = sorted(get_trips(), key = lambda x:x['start_date'])
     return render_template('trips.html',trips_info=trips_info)
 
 @app.route('/trips/add', methods=['GET','POST'])
@@ -139,7 +139,8 @@ def trip(trip_id=None):
         return render_template('trip.html',trip_page=trip_page)
     else:
         return render_template('trips.html',trips_info=trips_info)
-    
+
+# EDIT TRIPS
 @app.route('/trips/<trip_id>/edit')
 def edit_trip():
     return render_template('trip_form.html')
