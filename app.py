@@ -129,6 +129,7 @@ def add_trip():
 
 @app.route('/trips/<trip_id>')
 def trip(trip_id=None):
+    get_trips()
     if trip_id == trip_id:
         trip_page = trips_info[int(trip_id)]
         return render_template('trip.html',trip_page=trip_page)
@@ -138,4 +139,4 @@ def trip(trip_id=None):
 # EDIT TRIPS
 @app.route('/trips/<trip_id>/edit', methods=['GET','POST'])
 def edit_trip():
-    return render_template('trip_form.html')
+    return render_template('add_trip.html')
