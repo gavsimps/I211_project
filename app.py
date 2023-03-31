@@ -126,7 +126,7 @@ def add_trip():
         return redirect(url_for('trips'))
     
     else:
-        return render_template('add_trip.html')
+        return render_template('add_trip.html', this_trip={'name': "blahblahblah"})
 
 @app.route('/trips/<trip_id>')
 def trip(trip_id=None):
