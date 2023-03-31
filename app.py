@@ -122,6 +122,7 @@ def add_trip():
         set_trips(gtrip)
 
         print(tripadd)
+        get_trips()
         return redirect(url_for('trips'))
     
     else:
