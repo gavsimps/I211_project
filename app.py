@@ -97,11 +97,6 @@ def add_member():
         return render_template('add_member.html')
 
 
-
-
-
-
-
 # TRIPS
 @app.route('/trips')
 def trips():
@@ -141,6 +136,6 @@ def trip(trip_id=None):
         return render_template('trips.html',trips_info=trips_info)
 
 # EDIT TRIPS
-@app.route('/trips/<trip_id>/edit')
+@app.route('/trips/<trip_id>/edit', methods=['GET','POST'])
 def edit_trip():
     return render_template('trip_form.html')
