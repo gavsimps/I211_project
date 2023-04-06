@@ -162,3 +162,26 @@ def edit_trip(trip_id=None):
     else: 
         trips = get_trips()
         return render_template('add_trip.html',trip=trips[trip_id],trip_id=trip_id)
+
+@app.route('/trips/<trip_id>/delete', methods=['GET','POST'])
+def del_trip(trip_id=None):
+    trips=get_trips()
+    trip_id = int(trip_id)
+    if request.method == 'POST':
+        tripdel = {}
+
+        tripdel['name'] = ''
+        tripdel['start_date'] = ''
+        tripdel['length'] = ''
+        tripdel['cost'] = ''
+        tripdel['location'] = ''
+        tripdel['level'] = ''
+        tripdel['leader'] = ''
+        tripdel['description'] = ''
+
+        trips[trip_id] = tripdel 
+        set_trips(trips)
+        
+        return redirect(url_for('trips'))
+    else:
+        return render_template('del_trip.html',trip_id=trip_id,trips=trips,trip=trips[trip_id])
