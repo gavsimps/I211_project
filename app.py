@@ -50,9 +50,10 @@ def set_members(gmem):
 def get_trips():
     with open(TRIP_PATH, 'r') as csvfile:
         data = csv.DictReader(csvfile)
-        trips = []
+        trips_info = []
         for nature in data:
-            trips.append(nature)              
+            trips_info.append(nature)
+        trips = sorted(trips_info, key = lambda x:x['start_date'])              
     return trips
 
 def set_trips(gtrip):
@@ -61,9 +62,6 @@ def set_trips(gtrip):
         writer.writeheader()
         for places in gtrip:
             writer.writerow(places)
-
-
-
 
 @app.route('/')
 def index():
@@ -126,18 +124,41 @@ def add_trip():
         return redirect(url_for('trips'))
     
     else:
-        return render_template('add_trip.html', this_trip={'name': "blahblahblah"})
+        # TO DO: GET THIS TO SPECIFY WHERE ITS FROM
+        return render_template('add_trip.html')
 
 @app.route('/trips/<trip_id>')
 def trip(trip_id=None):
-    get_trips()
+    trips=get_trips()
     if trip_id == trip_id:
-        trip_page = trips_info[int(trip_id)]
-        return render_template('trip.html',trip_page=trip_page)
+        trip_id = int(trip_id)
+        return render_template('trip.html',trips=trips,trip_id=trip_id,trip=trips[int(trip_id)])
     else:
         return render_template('trips.html',trips_info=trips_info)
 
 # EDIT TRIPS
 @app.route('/trips/<trip_id>/edit', methods=['GET','POST'])
-def edit_trip():
-    return render_template('add_trip.html')
+def edit_trip(trip_id=None):
+    trip_id = int(trip_id)
+    trips = get_trips()
+
+    if request.method == 'POST':
+        tripedit = {}
+
+        tripedit['name'] = request.form['name']
+        tripedit['start_date'] = request.form['start']
+        tripedit['length'] = request.form['length']
+        tripedit['cost'] = request.form['cost']
+        tripedit['location'] = request.form['locat']
+        tripedit['level'] = request.form['level']
+        tripedit['leader'] = request.form['leader']
+        tripedit['description'] = request.form['desc']
+        
+        trips[trip_id] = tripedit
+        set_trips(trips)
+
+        return redirect(url_for('trips'))
+    
+    else: 
+        trips = get_trips()
+        return render_template('add_trip.html',trip=trips[trip_id],trip_id=trip_id)

@@ -1,31 +1,31 @@
 {% extends "base.html" %}
 {% block title %}Trip Info{% endblock %}
 {% block content %}
-    <h1 class="mt-5">{{trip_page['name']}}</h1>
+    <h1 class="mt-5">{{trip['name']}}</h1>
     <table class="table">
         <tr>
-            <th>Start Date:</th><td padding-left="50px">{{trip_page['start_date']}}</td>
+            <th>Start Date:</th><td padding-left="50px">{{trip['start_date']}}</td>
         </tr>
         <tr>
-            <th>Trip Length:</th><td>{{trip_page['length']}}</td>
+            <th>Trip Length:</th><td>{{trip['length']}}</td>
         </tr>
         <tr>
-            <th>Activity Level:</th><td>{{trip_page['level']}}</td>
+            <th>Activity Level:</th><td>{{trip['level']}}</td>
         </tr>
         <tr>
-            <th>Location:</th><td>{{trip_page['location']}}</td>
+            <th>Location:</th><td>{{trip['location']}}</td>
         </tr>
         <tr>
-            <th>Cost:</th><td>{{trip_page['cost']}}</td>
+            <th>Cost:</th><td>{{trip['cost']}}</td>
         </tr>
         <tr>
-            <th>Trip Leader:</th><td>{{trip_page['leader']}}</td>
+            <th>Trip Leader:</th><td>{{trip['leader']}}</td>
         </tr>
         <tr>
-            <th>Description:</th><td>{{trip_page['description']}}</td>
+            <th>Description:</th><td>{{trip['description']}}</td>
         </tr>
     </table>
 <!--add button, add a trip
     goes to trip form-->
-<a class="btn btn-primary btn-lg px-4 gap-3" href="{{url_for('add_trip')}}" role="button">Edit Trip</a>
+<a class="btn btn-primary btn-lg px-4 gap-3" href="{{url_for('edit_trip',trip_id=trip_id)}}" role="button">Edit Trip</a>
 {% endblock %}
