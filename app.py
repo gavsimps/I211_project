@@ -63,6 +63,7 @@ def set_trips(gtrip):
         for places in gtrip:
             writer.writerow(places)
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -165,22 +166,26 @@ def edit_trip(trip_id=None):
 
 @app.route('/trips/<trip_id>/delete', methods=['GET','POST'])
 def del_trip(trip_id=None):
-    trips=get_trips()
     trip_id = int(trip_id)
+    trips=get_trips()
     if request.method == 'POST':
-        tripdel = {}
-
-        tripdel['name'] = ''
-        tripdel['start_date'] = ''
-        tripdel['length'] = ''
-        tripdel['cost'] = ''
-        tripdel['location'] = ''
-        tripdel['level'] = ''
-        tripdel['leader'] = ''
-        tripdel['description'] = ''
-
-        trips[trip_id] = tripdel 
+        trip=trips[int(trip_id)]
+        trips.remove(trip)
         set_trips(trips)
+        print(trips)
+        # tripdel = {}
+
+        # tripdel['name'] = ''
+        # tripdel['start_date'] = ''
+        # tripdel['length'] = ''
+        # tripdel['cost'] = ''
+        # tripdel['location'] = ''
+        # tripdel['level'] = ''
+        # tripdel['leader'] = ''
+        # tripdel['description'] = ''
+
+        # trips[trip_id] = tripdel
+        # del_trips(trips)
         
         return redirect(url_for('trips'))
     else:
