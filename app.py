@@ -5,22 +5,16 @@ import datetime
 app = Flask(__name__)
 
 MEMBER_PATH = app.root_path + '/members.csv'
-MEMBER_KEYS = ['Name','DoB','Email','Address','Phone']
+MEMBER_KEYS = ['name','dob','email','address','phone']
 
 TRIP_PATH = app.root_path + '/trips.csv'
 TRIP_KEYS = ['name','start_date','length','cost','location','level','leader','description']
 
 # MEMBER PATH
 with open(MEMBER_PATH,'r') as csvfile:
-    lines = csv.reader(csvfile)
-    member_header = []
-    for row in lines:
-        member_header.append(row)
-
-with open(MEMBER_PATH,'r') as csvfile:
     data = csv.DictReader(csvfile)
     membing = list(data)
-    member_info = sorted(membing, key = lambda x:x['DoB'])
+    member_info = sorted(membing, key = lambda x:x['dob'])
 
 
 # TRIP PATH
@@ -73,7 +67,7 @@ def index():
 @app.route('/members')
 def members():
     member_info = sorted(get_members(), key = lambda x:x['DoB'])
-    return render_template('members.html',member_info=member_info,member_header=member_header)
+    return render_template('members.html',member_info=member_info)
 
 @app.route('/members/add', methods=['GET','POST'])
 def add_member():
@@ -173,19 +167,6 @@ def del_trip(trip_id=None):
         trips.remove(trip)
         set_trips(trips)
         print(trips)
-        # tripdel = {}
-
-        # tripdel['name'] = ''
-        # tripdel['start_date'] = ''
-        # tripdel['length'] = ''
-        # tripdel['cost'] = ''
-        # tripdel['location'] = ''
-        # tripdel['level'] = ''
-        # tripdel['leader'] = ''
-        # tripdel['description'] = ''
-
-        # trips[trip_id] = tripdel
-        # del_trips(trips)
         
         return redirect(url_for('trips'))
     else:

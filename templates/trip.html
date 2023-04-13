@@ -7,7 +7,7 @@
             <th>Start Date:</th><td padding-left="50px">{{trip['start_date']}}</td>
         </tr>
         <tr>
-            <th>Trip Length:</th><td>{{trip['length']}}</td>
+            <th>Trip Length:</th><td>{{trip['length']}} {% if trip['length'] == '1' %}day{% else %}days{% endif %}</td>
         </tr>
         <tr>
             <th>Activity Level:</th><td>{{trip['level']}}</td>
@@ -16,7 +16,7 @@
             <th>Location:</th><td>{{trip['location']}}</td>
         </tr>
         <tr>
-            <th>Cost:</th><td>{{trip['cost']}}</td>
+            <th>Cost:</th><td>${{trip['cost']}}</td>
         </tr>
         <tr>
             <th>Trip Leader:</th><td>{{trip['leader']}}</td>

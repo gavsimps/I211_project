@@ -18,9 +18,9 @@
             <tr>
                 <td><a href="{{url_for('trip', trip_id=trips_info.index(trp))}}">{{trp['name']}}</a></td>
                 <td>{{trp['start_date']}}</td> 
-                <td>{{trp['length']}}</td>
+                <td>{{trp['length']}} {% if trp['length'] == '1' %}day{% else %}days{% endif %}</td>
                 <td>{{trp['location']}}</td> 
-                <td>{{trp['cost']}}</td>
+                <td>${{trp['cost']}}</td>
             </tr>
             {% endfor %}
         </tbody>

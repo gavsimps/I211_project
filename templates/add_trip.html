@@ -36,13 +36,11 @@ text boxes
                         <th><label for="length" class="sr-only">Trip Length:</label></th>
                         <td>
                             <select class="form-control" style="border-color: black;" id="length" name="length">
-                                <option value="1 day" {% if trip and trip['length'] == '1 day' %}selected{% endif %}>1 day</option>
-                                <option value="2 days" {% if trip and trip['length'] == '2 days' %}selected{% endif %}>2 days</option>
-                                <option value="3 days" {% if trip and trip['length'] == '3 days' %}selected{% endif %}>3 days</option>
-                                <option value="4 days" {% if trip and trip['length'] == '4 days' %}selected{% endif %}>4 days</option>
-                                <option value="5 days" {% if trip and trip['length'] == '5 days' %}selected{% endif %}>5 days</option>
-                                <option value="6 days" {% if trip and trip['length'] == '6 days' %}selected{% endif %}>6 days</option>
-                                <option value="1 week+" {% if trip and trip['length'] == '1 week+' %}selected{% endif %}>1 week+</option>
+                                <option value="1 day" {% if trip and trip['length'] == '1' %}selected{% endif %}>1 day</option>
+                                <option value="3 days" {% if trip and trip['length'] == '3' %}selected{% endif %}>3 days</option>
+                                <option value="5 days" {% if trip and trip['length'] == '5' %}selected{% endif %}>5 days</option>
+                                <option value="7 days" {% if trip and trip['length'] == '7' %}selected{% endif %}>7 days</option>
+                                <option value="9 days" {% if trip and trip['length'] == '9' %}selected{% endif %}>9 days</option>
                             </select>
                         </td>
                     </div>
