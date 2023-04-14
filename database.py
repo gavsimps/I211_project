@@ -9,52 +9,72 @@ def get_connection():
                            cursorclass=pymysql.cursors.DictCursor)
 
 def get_trips():
-    '''Returns a list of dictionaries representing all of the trips data'''
-    pass
-
-def get_trip(trip_id):
-    '''Takes a trip_id, returns a single dictionary containing the data for the trip with that id'''
-    pass
-
-def add_trip(trip):
-    '''Takes as input all of the data for a trip. Inserts a new trip into the trip table'''
-    pass
-
-def update_trip(trip_id, trip):
-    '''Takes a trip_id and data for a trip. Updates the trip table with new data for the trip with trip_id as it's primary key'''
-    pass
-
-def add_member(member):
-    '''Takes as input all of the data for a member and adds a new member to the member table'''
-    pass
-    
-def get_members():
-    sql = "select * from member order by dob"
+    # '''Returns a list of dictionaries representing all of the trips data'''
+    sql = "select * from trips order by start_date"
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
             cursor.execute(sql)
             return cursor.fetchall()
+
+def get_trip(trip_id):
+    # '''Takes a trip_id, returns a single dictionary containing the data for the trip with that id'''
+    sql = "select * from trips where name = %s"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql)
+            return cursor.fetchall()
+
+def add_trip(name,start_date,length,cost,location,level,leader,description):
+    # '''Takes as input all of the data for a trip. Inserts a new trip into the trip table'''
+    sql = "insert into trips (name,start_date,length,cost,location,level,leader,description) values (%s,%s,%s,%s,%s,%s,%s,%s)"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (name,start_date,length,cost,location,level,leader,description))
+            return cursor.fetchall()
     pass
 
+def update_trip(trip_id, trip):
+    # '''Takes a trip_id and data for a trip. Updates the trip table with new data for the trip with trip_id as it's primary key'''
+    pass
+
+def add_member(name,dob,email,address,phone):
+    # '''Takes as input all of the data for a member and adds a new member to the member table'''
+    sql = "insert into members (name,dob,email,address,phone) values (%s,%s,%s,%s,%s)"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (name,dob,email,address,phone))
+            return cursor.fetchall()
+    
+def get_members():
+    sql = "select * from members order by dob"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql)
+            return cursor.fetchall()
+
 def edit_member(member_id, member):
-    '''Given an member__id and member info, updates the data for the member with the given member_id in the member table'''
+    # '''Given an member__id and member info, updates the data for the member with the given member_id in the member table'''
     pass
 
 def delete_member(member_id):
-    '''Takes a member_id and deletes the member with that member_id from the member table'''
+    # '''Takes a member_id and deletes the member with that member_id from the member table'''
     pass
     
 def add_member_trip(trip_id, member_id):
-    '''Takes as input a trip_id and a member_id and inserts the appropriate data into the database
-    that indicates the member with member_id as a primary key is attending the trip with the trip_id as a primary key'''
+    # '''Takes as input a trip_id and a member_id and inserts the appropriate data into the database
+    # that indicates the member with member_id as a primary key is attending the trip with the trip_id as a primary key'''
     pass
     
 def remove_member_trip(trip_id, member_id):
-    '''Takes as input a trip_id and a member_id and deletes the data in the database that indicates that the member with member_id as a primary key 
-    is attending the trip with trip_id as a primary key.'''
+    # '''Takes as input a trip_id and a member_id and deletes the data in the database that indicates that the member with member_id as a primary key 
+    # is attending the trip with trip_id as a primary key.'''
     pass
     
 def get_attendees(trip_id):
-    '''Takes a trip_id and returns a list of dictionaries representing all of the members attending the trip with trip_id as its primary key'''
+    # '''Takes a trip_id and returns a list of dictionaries representing all of the members attending the trip with trip_id as its primary key'''
     pass

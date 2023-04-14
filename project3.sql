@@ -17,10 +17,10 @@ CREATE TABLE trips (
 CREATE TABLE members (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR(50),
-    address VARCHAR(50),
-    email VARCHAR(50),
     dob DATE,
-    phone_number VARCHAR(20)
+    email VARCHAR(50),
+    address VARCHAR(50),
+    phone VARCHAR(20)
 ) ENGINE = innodb;
 
 CREATE TABLE attend (
@@ -37,7 +37,7 @@ INSERT INTO trips (id,name,start_date,length,cost,location,level,leader,descript
 (4,'Great Smokey Mountains Adventure','2023-04-15',3,2200,'Great Smokey Mountains National Park TN','Intermediate','Fredd','This 4-day adventure brings you face to face with the many facets and hidden wonders of the Great Smoky Mountains.'),
 (5,'Grand Teton Kayaking','2023-06-06',9,1600,'Grand Teton National Park WY','Easy','Lilly Normalname','The Grand Tetons are renowned for breathtaking beauty. This incredible 2-day trip takes us through some of the best sights.');
 
-INSERT INTO members (id,name,address,email,dob,phone_number) VALUES 
+INSERT INTO members (id,name,dob,email,address,phone) VALUES 
 (1,'Blunder Whoopsmore','1998-07-19','bloopsmore@hotmail.com','4716 Hogging St Billings MT','406-318-7926'),
 (2,'Grimble Simpleton','2002-03-14','arceus519@gmail.com','1150 S Clarizz Bloomington IN','317-317-4892'),
 (3,'Andrew Turnner','1996-12-08','bessattackingme28@gmail.com','925 Strand Rd Houstan TX','558-439-0021'),

@@ -1,8 +1,16 @@
 from flask import Flask, render_template, url_for, request, redirect
+from os.path import exists
 import csv
+import html
 import datetime
 
 app = Flask(__name__)
+
+app.config.from_pyfile(app.root_path + '/config_defaults.py')
+if exists(app.root_path + '/config.py'):
+    app.config.from_pyfile(app.root_path + '/config.py')
+
+import database
 
 MEMBER_PATH = app.root_path + '/members.csv'
 MEMBER_KEYS = ['name','dob','email','address','phone']
@@ -62,27 +70,24 @@ def set_trips(gtrip):
 def index():
     return render_template('index.html')
 
-
 # MEMBERS
 @app.route('/members')
 def members():
-    member_info = sorted(get_members(), key = lambda x:x['DoB'])
+    # member_info = sorted(get_members(), key = lambda x:x['DoB'])
+    member_info = database.get_members()
     return render_template('members.html',member_info=member_info)
 
 @app.route('/members/add', methods=['GET','POST'])
 def add_member():
     if request.method == 'POST':
-        gmem = get_members()
-        memberadd = {}
 
-        memberadd['Name'] = request.form['name']
-        memberadd['DoB'] = request.form['dob']
-        memberadd['Email'] = request.form['email']
-        memberadd['Address'] = request.form['addy']
-        memberadd['Phone'] = request.form['phone']
+        name = request.form['name']
+        dob = request.form['dob']
+        email = request.form['email']
+        address = request.form['addy']
+        phone = request.form['phone']
         
-        gmem.append(memberadd)
-        set_members(gmem)
+        database.add_member(name,dob,email,address,phone)
 
         return redirect(url_for('members'))
 
@@ -93,29 +98,25 @@ def add_member():
 # TRIPS
 @app.route('/trips')
 def trips():
-    trips_info = sorted(get_trips(), key = lambda x:x['start_date'])
+    # trips_info = sorted(get_trips(), key = lambda x:x['start_date'])
+    trips_info = database.get_trips()
     return render_template('trips.html',trips_info=trips_info)
 
 @app.route('/trips/add', methods=['GET','POST'])
 def add_trip():
     if request.method == 'POST':
-        gtrip = get_trips()
-        tripadd = {}
 
-        tripadd['name'] = request.form['name']
-        tripadd['start_date'] = request.form['start']
-        tripadd['length'] = request.form['length']
-        tripadd['cost'] = request.form['cost']
-        tripadd['location'] = request.form['locat']
-        tripadd['level'] = request.form['level']
-        tripadd['leader'] = request.form['leader']
-        tripadd['description'] = request.form['desc']
+        name = request.form['name']
+        start_date = request.form['start']
+        length = request.form['length']
+        cost = request.form['cost']
+        location = request.form['locat']
+        level = request.form['level']
+        leader = request.form['leader']
+        description = request.form['desc']
         
-        gtrip.append(tripadd)
-        set_trips(gtrip)
+        database.add_trip(name,start_date,length,cost,location,level,leader,description)
 
-        print(tripadd)
-        get_trips()
         return redirect(url_for('trips'))
     
     else:
