@@ -12,60 +12,6 @@ if exists(app.root_path + '/config.py'):
 
 import database
 
-MEMBER_PATH = app.root_path + '/members.csv'
-MEMBER_KEYS = ['name','dob','email','address','phone']
-
-TRIP_PATH = app.root_path + '/trips.csv'
-TRIP_KEYS = ['name','start_date','length','cost','location','level','leader','description']
-
-# MEMBER PATH
-with open(MEMBER_PATH,'r') as csvfile:
-    data = csv.DictReader(csvfile)
-    membing = list(data)
-    member_info = sorted(membing, key = lambda x:x['dob'])
-
-
-# TRIP PATH
-with open(TRIP_PATH,'r') as csvfile:
-    data = csv.DictReader(csvfile)
-    tripping = list(data)
-    trips_info = sorted(tripping, key = lambda x:x['start_date'])
-
-#MEMBERS FUNCTIONS
-def get_members():
-    with open(MEMBER_PATH, 'r') as csvfile:
-        data = csv.DictReader(csvfile)
-        members = []
-        for mem in data:
-            members.append(mem)              
-    return members
-
-def set_members(gmem):
-    with open(MEMBER_PATH, mode='w', newline='') as csv_file:
-        writer = csv.DictWriter(csv_file, fieldnames=MEMBER_KEYS)
-        writer.writeheader()
-        for mems in gmem:
-            writer.writerow(mems)
-
-
-# TRIPS FUNCTIONS
-def get_trips():
-    with open(TRIP_PATH, 'r') as csvfile:
-        data = csv.DictReader(csvfile)
-        trips_info = []
-        for nature in data:
-            trips_info.append(nature)
-        trips = sorted(trips_info, key = lambda x:x['start_date'])              
-    return trips
-
-def set_trips(gtrip):
-    with open(TRIP_PATH, mode='w', newline='') as csv_file:
-        writer = csv.DictWriter(csv_file, fieldnames=TRIP_KEYS)
-        writer.writeheader()
-        for places in gtrip:
-            writer.writerow(places)
-
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -156,14 +102,12 @@ def edit_trip(trip_id=None):
 
 @app.route('/trips/<trip_id>/delete', methods=['GET','POST'])
 def del_trip(trip_id=None):
-    trip_id = int(trip_id)
-    trips=get_trips()
+    
     if request.method == 'POST':
-        trip=trips[int(trip_id)]
-        trips.remove(trip)
-        set_trips(trips)
-        print(trips)
+        
+        database.delete_trip(trip_id)
         
         return redirect(url_for('trips'))
     else:
-        return render_template('del_trip.html',trip_id=trip_id,trips=trips,trip=trips[trip_id])
+        trips = database.get_trip(trip_id)
+        return render_template('del_trip.html',trip=database.get_trip(trip_id),trips=trips,trip_id=trip_id)

@@ -8,6 +8,7 @@ def get_connection():
                            database=app.config['DB_DATABASE'],
                            cursorclass=pymysql.cursors.DictCursor)
 
+
 def get_trips():
     # '''Returns a list of dictionaries representing all of the trips data'''
     sql = "select * from trips order by start_date"
@@ -56,6 +57,14 @@ def delete_trip(trip_id):
             return cursor.fetchall()
     pass
 
+def get_members():
+    sql = "select * from members order by dob"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql)
+            return cursor.fetchall()
+
 def add_member(name,dob,email,address,phone):
     # '''Takes as input all of the data for a member and adds a new member to the member table'''
     sql = "insert into members (name,dob,email,address,phone) values (%s,%s,%s,%s,%s)"
@@ -63,14 +72,6 @@ def add_member(name,dob,email,address,phone):
     with conn:
         with conn.cursor() as cursor:
             cursor.execute(sql, (name,dob,email,address,phone))
-            return cursor.fetchall()
-    
-def get_members():
-    sql = "select * from members order by dob"
-    conn = get_connection()
-    with conn:
-        with conn.cursor() as cursor:
-            cursor.execute(sql)
             return cursor.fetchall()
 
 def edit_member(member_id,name,dob,email,address,phone):
@@ -124,3 +125,17 @@ def get_attendees(trip_id):
             cursor.execute(sql, (trip_id))
             return cursor.fetchall()
     pass
+
+if __name__ == '__main__':
+#add more test code here to make sure all your functions are working correctly
+    try:
+        print(f'All trips: {get_trips()}')
+        print(f'Trip info for trip_id 1: {get_trip(1)}')
+        add_trip("A Day in Yellowwood", "2023-04-22", 5, 100,
+                 "Yellowwood State Forest", 'Easy', "Sy Hikist",
+                 "A day of hiking in Yellowwood. Bring a water bottle" )
+        print(f'All Members: {get_members()}')
+        add_member("Tom Sawyer","1970-04-01","tsawyer@twain.com","101 E Sam Clemons Dr Bloomington,IN", "812-905-1865")
+        print(f"All members attending the trip with trip_id 1: {get_attendees(1)}")
+    except Exception as e:
+        print(e)

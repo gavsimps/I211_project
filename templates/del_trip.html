@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Delete Trip{% endblock %}
 {% block content %}
+{% for trip in trip %}
 <h1 class="mt-5" style="color: rgb(247, 0, 0);">Delete This Trip?</h1>
 <h2 class="mt-5">{{trip['name']}}</h2>
 <table class="table">
@@ -31,4 +32,5 @@
     <a class="btn btn-primary btn-lg px-4 gap-3" href="{{url_for('trip',trip_id=trip_id)}}" role="button">Return to Trip</a>
     <button type="submit" value="Submit" class="btn btn-danger btn-lg px-4 gap-3">Delete</button>
 </form>
+{% endfor %}
 {% endblock %}
