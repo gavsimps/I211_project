@@ -47,7 +47,7 @@ def update_trip(name,start_date,length,cost,location,level,leader,description,tr
     pass
 
 def delete_trip(trip_id):
-    # '''Takes a trip_id and data for a trip. Updates the trip table with new data for the trip with trip_id as it's primary key'''
+    # this wasn't in source code
     sql = "delete from trips where id = %s"
     conn = get_connection()
     with conn:
