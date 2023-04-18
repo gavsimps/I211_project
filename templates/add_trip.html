@@ -12,6 +12,7 @@ text boxes
     cost, leader, desc.
 2 buttons: save, reset-->
 {% if trip %}
+{% for trip_info in trip %}
 <div class="container-fluid mx-auto">
     <h1 class="mt-5" style="color: rgb(0, 132, 255);">Edit Trip: {{trip['name']}}</h1>
     <div class="container ">
@@ -20,14 +21,14 @@ text boxes
                 <tr>   
                     <div class="form-group mb-2">
                         <th><label for="name" class="sr-only">Trip Name:</label></th>    
-                        <td><input type="text" style="width: 600px" id="name" name="name" value="{{trip['name']}}"></td>
+                        <td><input type="text" style="width: 600px" id="name" name="name" value="{{trip_info['name']}}"></td>
                     </div>
                 </tr>
                 
                 <tr>
                     <div class="form-group mb-2">
                         <th><label for="locat" class="sr-only">Trip Location:</label></th>
-                        <td><input type="text" style="width: 600px" id="locat" name="locat" value="{{trip['location']}}"></td>
+                        <td><input type="text" style="width: 600px" id="locat" name="locat" value="{{trip_info['location']}}"></td>
                     </div>
                 </tr>
 
@@ -36,11 +37,11 @@ text boxes
                         <th><label for="length" class="sr-only">Trip Length:</label></th>
                         <td>
                             <select class="form-control" style="border-color: black;" id="length" name="length">
-                                <option value="1 day" {% if trip and trip['length'] == '1' %}selected{% endif %}>1 day</option>
-                                <option value="3 days" {% if trip and trip['length'] == '3' %}selected{% endif %}>3 days</option>
-                                <option value="5 days" {% if trip and trip['length'] == '5' %}selected{% endif %}>5 days</option>
-                                <option value="7 days" {% if trip and trip['length'] == '7' %}selected{% endif %}>7 days</option>
-                                <option value="9 days" {% if trip and trip['length'] == '9' %}selected{% endif %}>9 days</option>
+                                <option value="1" {% if trip and trip_info['length'] == 1 %}selected{% endif %}>1 day</option>
+                                <option value="3" {% if trip and trip_info['length'] == 3 %}selected{% endif %}>3 days</option>
+                                <option value="5" {% if trip and trip_info['length'] == 5 %}selected{% endif %}>5 days</option>
+                                <option value="7" {% if trip and trip_info['length'] == 7 %}selected{% endif %}>7 days</option>
+                                <option value="9" {% if trip and trip_info['length'] == 9 %}selected{% endif %}>9 days</option>
                             </select>
                         </td>
                     </div>
@@ -51,11 +52,11 @@ text boxes
                         <th><label for="level" class="sr-only">Activity Level:</label></th>
                         <td>
                             <select class="form-control" style="border-color: black;" id="level" name="level">
-                                <option value="Easy" {% if trip and trip['level'] == 'Easy' %}selected{% endif %}>Easy</option>
-                                <option value="Intermediate" {% if trip and trip['level'] == 'Intermediate' %}selected{% endif %}>Intermediate</option>
-                                <option value="Hard" {% if trip and trip['level'] == 'Hard' %}selected{% endif %}>Hard</option>
-                                <option value="Intense" {% if trip and trip['level'] == 'Intense' %}selected{% endif %}>Intense</option>
-                                <option value="Certain Death" {% if trip and trip['level'] == 'Certain Death' %}selected{% endif %}>Certain Death</option>
+                                <option value="Easy" {% if trip and trip_info['level'] == 'Easy' %}selected{% endif %}>Easy</option>
+                                <option value="Intermediate" {% if trip and trip_info['level'] == 'Intermediate' %}selected{% endif %}>Intermediate</option>
+                                <option value="Hard" {% if trip and trip_info['level'] == 'Hard' %}selected{% endif %}>Hard</option>
+                                <option value="Intense" {% if trip and trip_info['level'] == 'Intense' %}selected{% endif %}>Intense</option>
+                                <option value="Certain Death" {% if trip and trip_info['level'] == 'Certain Death' %}selected{% endif %}>Certain Death</option>
                             </select>
                         </td>
                     </div>
@@ -64,27 +65,27 @@ text boxes
                 <tr>
                     <div class="form-group mb-2">
                         <th><label for="start" class="sr-only">Start Date:</label></th>
-                        <td><input placeholder="Select Date" type="date" id="start" name="start" value="{{trip['start_date']}}" required></td>
+                        <td><input placeholder="Select Date" type="date" id="start" name="start" value="{{trip_info['start_date']}}" required></td>
                     </div>
                 </tr>
 
                 <tr>
                     <div class="form-group mb-2">
                         <th><label for="cost" class="sr-only">Cost:</label></th>
-                        <td><input type="text" style="width: 600px" id="cost" name="cost" value="{{trip['cost']}}"></td>
+                        <td><input type="text" style="width: 600px" id="cost" name="cost" value="{{trip_info['cost']}}"></td>
                     </div>
                 </tr>
                 
                 <tr>
                     <div class="form-group mb-2">
                         <th><label for="leader" class="sr-only">Trip Leader:</label></th>
-                        <td><input type="text" style="width: 600px" cols="64" id="leader" name="leader" value="{{trip['leader']}}"></td>
+                        <td><input type="text" style="width: 600px" cols="64" id="leader" name="leader" value="{{trip_info['leader']}}"></td>
                     </div>
                 </tr>
 
                 <tr>
                     <th><label for="desc">Description:</label></th>
-                    <td><textarea id="desc" name="desc" cols="64" rows="5" >{% if trip %}{{trip['description']}}{% endif %}</textarea></td>   
+                    <td><textarea id="desc" name="desc" cols="64" rows="5" >{% if trip %}{{trip_info['description']}}{% endif %}</textarea></td>   
                 </tr>
             </table>
             <button type="submit" value="Submit" class="btn btn-primary">Save</button>
@@ -92,7 +93,7 @@ text boxes
         </form>
     </div>
 </div>
-
+{% endfor %}
 
 
 

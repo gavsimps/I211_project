@@ -14,13 +14,13 @@
             </tr>
         </thread>
         <tbody>
-            {% for trp in trips_info %}
+            {% for trip in trips_info %}
             <tr>
-                <td><a href="{{url_for('trip', trip_id=trp['id'])}}">{{trp['name']}}</a></td>
-                <td>{{trp['start_date']}}</td> 
-                <td>{{trp['length']}} {% if trp['length'] == '1' %}day{% else %}days{% endif %}</td>
-                <td>{{trp['location']}}</td> 
-                <td>${{trp['cost']}}</td>
+                <td><a href="{{url_for('trip', trip_id=trip['id'])}}">{{trip['name']}}</a></td>
+                <td>{{trip['start_date']}}</td> 
+                <td>{{trip['length']}} {% if trip['length'] == '1' %}day{% else %}days{% endif %}</td>
+                <td>{{trip['location']}}</td> 
+                <td>${{trip['cost']}}</td>
             </tr>
             {% endfor %}
         </tbody>

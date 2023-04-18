@@ -135,29 +135,24 @@ def trip(trip_id=None):
 # EDIT TRIPS
 @app.route('/trips/<trip_id>/edit', methods=['GET','POST'])
 def edit_trip(trip_id=None):
-    trip_id = int(trip_id)
-    trips = get_trips()
-
     if request.method == 'POST':
-        tripedit = {}
 
-        tripedit['name'] = request.form['name']
-        tripedit['start_date'] = request.form['start']
-        tripedit['length'] = request.form['length']
-        tripedit['cost'] = request.form['cost']
-        tripedit['location'] = request.form['locat']
-        tripedit['level'] = request.form['level']
-        tripedit['leader'] = request.form['leader']
-        tripedit['description'] = request.form['desc']
+        name = request.form['name']
+        start_date = request.form['start']
+        length = request.form['length']
+        cost = request.form['cost']
+        location = request.form['locat']
+        level = request.form['level']
+        leader = request.form['leader']
+        description = request.form['desc']
         
-        trips[trip_id] = tripedit
-        set_trips(trips)
+        database.update_trip(name,start_date,length,cost,location,level,leader,description,trip_id)
 
         return redirect(url_for('trips'))
     
     else: 
-        trips = get_trips()
-        return render_template('add_trip.html',trip=trips[trip_id],trip_id=trip_id)
+        trips = database.get_trip(trip_id)
+        return render_template('add_trip.html',trip=database.get_trip(trip_id),trips=trips,trip_id=trip_id)
 
 @app.route('/trips/<trip_id>/delete', methods=['GET','POST'])
 def del_trip(trip_id=None):

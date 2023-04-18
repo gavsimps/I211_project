@@ -36,13 +36,13 @@ def add_trip(name,start_date,length,cost,location,level,leader,description):
             return cursor.fetchall()
     pass
 
-def update_trip(trip_id, name,start_date,length,cost,location,level,leader,description):
+def update_trip(name,start_date,length,cost,location,level,leader,description,trip_id):
     # '''Takes a trip_id and data for a trip. Updates the trip table with new data for the trip with trip_id as it's primary key'''
-    sql = "update trips set (name,start_date,length,cost,location,level,leader,description) values (%s,%s,%s,%s,%s,%s,%s,%s) where id = {{trip_id}}"
+    sql = "update trips set name=%s,start_date=%s,length=%s,cost=%s,location=%s,level=%s,leader=%s,description=%s where id = %s"
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
-            cursor.execute(sql, (name,start_date,length,cost,location,level,leader,description))
+            cursor.execute(sql, (name,start_date,length,cost,location,level,leader,description,trip_id))
             return cursor.fetchall()
     pass
 
@@ -65,34 +65,52 @@ def get_members():
 
 def edit_member(member_id, name,dob,email,address,phone):
     # '''Given an member_id and member info, updates the data for the member with the given member_id in the member table'''
-    sql = "update members (name,dob,email,address,phone) values (%s,%s,%s,%s,%s) where id = {{member_id}}"
+    sql = "update members name=%s,dob=%s,email=%s,address=%s,phone=%s where id = %s"
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
-            cursor.execute(sql, (name,dob,email,address,phone,{{member_id}}))
+            cursor.execute(sql, (name,dob,email,address,phone,member_id))
             return cursor.fetchall()
     pass
 
 def delete_member(member_id):
     # '''Takes a member_id and deletes the member with that member_id from the member table'''
+    sql = "delete from members where id = %s"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (member_id))
+            return cursor.fetchall()
     pass
     
 def add_member_trip(trip_id, member_id):
     # '''Takes as input a trip_id and a member_id and inserts the appropriate data into the database
     # that indicates the member with member_id as a primary key is attending the trip with the trip_id as a primary key'''
+    sql = "insert into attend (member_id,trip_id) values (%s,%s)"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (member_id,trip_id))
+            return cursor.fetchall()
     pass
     
 def remove_member_trip(trip_id, member_id):
     # '''Takes as input a trip_id and a member_id and deletes the data in the database that indicates that the member with member_id as a primary key 
     # is attending the trip with trip_id as a primary key.'''
+    sql = "delete from attend where member_id = %s and trip_id = %s"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (member_id,trip_id))
+            return cursor.fetchall()
     pass
     
 def get_attendees(trip_id):
     # '''Takes a trip_id and returns a list of dictionaries representing all of the members attending the trip with trip_id as its primary key'''
-    sql = "select t.id, m.name from trips as t join attend as a on a.trip_id = t.id join members as m on m.id = a.member_id where t.id = {{trip_id}}"
+    sql = "select t.id, m.name from trips as t join attend as a on a.trip_id = t.id join members as m on m.id = a.member_id where t.id = %s"
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
-            cursor.execute(sql, ({{trip_id}}))
+            cursor.execute(sql, (trip_id))
             return cursor.fetchall()
     pass
