@@ -125,11 +125,11 @@ def add_trip():
 
 @app.route('/trips/<trip_id>')
 def trip(trip_id=None):
-    trips=get_trips()
-    if trip_id == trip_id:
-        trip_id = int(trip_id)
-        return render_template('trip.html',trips=trips,trip_id=trip_id,trip=trips[int(trip_id)])
+    if trip_id :
+        trip_info = database.get_trip(trip_id)
+        return render_template('trip.html',trip_info=trip_info,trip=database.get_trip(trip_id))
     else:
+        trips_info = database.get_trips()
         return render_template('trips.html',trips_info=trips_info)
 
 # EDIT TRIPS

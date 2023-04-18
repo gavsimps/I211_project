@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Trip Info{% endblock %}
 {% block content %}
-    <h1 class="mt-5">{{trip['name']}}</h1>
+    <h1 class="mt-5">{{trip['name']}}</h1> 
+    {{trip}}
     <table class="table">
         <tr>
             <th>Start Date:</th><td padding-left="50px">{{trip['start_date']}}</td>
