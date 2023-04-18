@@ -46,6 +46,16 @@ def update_trip(name,start_date,length,cost,location,level,leader,description,tr
             return cursor.fetchall()
     pass
 
+def delete_trip(trip_id):
+    # '''Takes a trip_id and data for a trip. Updates the trip table with new data for the trip with trip_id as it's primary key'''
+    sql = "delete from trips where id = %s"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (trip_id))
+            return cursor.fetchall()
+    pass
+
 def add_member(name,dob,email,address,phone):
     # '''Takes as input all of the data for a member and adds a new member to the member table'''
     sql = "insert into members (name,dob,email,address,phone) values (%s,%s,%s,%s,%s)"
@@ -63,7 +73,7 @@ def get_members():
             cursor.execute(sql)
             return cursor.fetchall()
 
-def edit_member(member_id, name,dob,email,address,phone):
+def edit_member(member_id,name,dob,email,address,phone):
     # '''Given an member_id and member info, updates the data for the member with the given member_id in the member table'''
     sql = "update members name=%s,dob=%s,email=%s,address=%s,phone=%s where id = %s"
     conn = get_connection()
