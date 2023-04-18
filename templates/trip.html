@@ -1,31 +1,32 @@
 {% extends "base.html" %}
 {% block title %}Trip Info{% endblock %}
 {% block content %}
-    <h1 class="mt-5">{{trip['name']}}</h1> 
-    {{trip}}
+    {% for trp in trip %}
+    <h1 class="mt-5">{{trp['name']}}</h1> 
     <table class="table">
         <tr>
-            <th>Start Date:</th><td padding-left="50px">{{trip['start_date']}}</td>
+            <th>Start Date:</th><td padding-left="50px">{{trp['start_date']}}</td>
         </tr>
         <tr>
-            <th>Trip Length:</th><td>{{trip['length']}} {% if trip['length'] == '1' %}day{% else %}days{% endif %}</td>
+            <th>Trip Length:</th><td>{{trp['length']}} {% if trp['length'] == '1' %}day{% else %}days{% endif %}</td>
         </tr>
         <tr>
-            <th>Activity Level:</th><td>{{trip['level']}}</td>
+            <th>Activity Level:</th><td>{{trp['level']}}</td>
         </tr>
         <tr>
-            <th>Location:</th><td>{{trip['location']}}</td>
+            <th>Location:</th><td>{{trp['location']}}</td>
         </tr>
         <tr>
-            <th>Cost:</th><td>${{trip['cost']}}</td>
+            <th>Cost:</th><td>${{trp['cost']}}</td>
         </tr>
         <tr>
-            <th>Trip Leader:</th><td>{{trip['leader']}}</td>
+            <th>Trip Leader:</th><td>{{trp['leader']}}</td>
         </tr>
         <tr>
-            <th>Description:</th><td>{{trip['description']}}</td>
+            <th>Description:</th><td>{{trp['description']}}</td>
         </tr>
     </table>
+    {% endfor %}
 <!--add button, add a trip
     goes to trip form-->
 <a class="btn btn-primary btn-lg px-4 gap-3" href="{{url_for('edit_trip',trip_id=trip_id)}}" role="button">Edit Trip</a>
