@@ -14,7 +14,6 @@ if exists(app.root_path + '/config.py'):
 
 import database
 
-
 # DATA VALIDATION
 
 # COST FOR ADD/EDIT TRIP
