@@ -13,7 +13,6 @@ if exists(app.root_path + '/config.py'):
     app.config.from_pyfile(app.root_path + '/config.py')
 
 import database
-import validate_phone
 
 
 # DATA VALIDATION
