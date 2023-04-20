@@ -3,15 +3,49 @@ from os.path import exists
 import csv
 import html
 import datetime
+import re 
 
 app = Flask(__name__)
 
+# CONFIG
 app.config.from_pyfile(app.root_path + '/config_defaults.py')
 if exists(app.root_path + '/config.py'):
     app.config.from_pyfile(app.root_path + '/config.py')
 
 import database
+import validate_phone
 
+
+# DATA VALIDATION
+
+# COST FOR ADD/EDIT TRIP
+def check_int(cost):
+    error=''
+    msg=[]
+    if len(cost)>4:
+        msg.append("Price is too expensive! Trips must not be more than $9999")
+    if cost.isdigit() == False:
+        msg.append('Invalid input for cost: Use only integers.')
+    if len(msg)>0:
+        error = " \n".join(msg)
+    return error 
+
+# PHONE FOR ADD/EDIT USER
+def validate_phone_number(client_subitted_phone_number):
+    if "(" in client_subitted_phone_number:
+        if '-' in client_subitted_phone_number:
+            return re.match(r"\(\d{3}\) \d{3}-\d{4}", client_subitted_phone_number)
+        else:
+            return re.match(r"\(\d{3}\)\d{3}\d{4}", client_subitted_phone_number)
+    else:
+        if '-' in client_subitted_phone_number:
+            return re.match(r"^\d{3}-\d{3}-\d{4}$", client_subitted_phone_number)
+        else:        
+            return re.match(r"^\\?[1-9][0-9]{7,14}$", client_subitted_phone_number)
+
+
+
+# APPLICATION
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -32,10 +66,16 @@ def add_member():
         email = request.form['email']
         address = request.form['addy']
         phone = request.form['phone']
-        
-        database.add_member(name,dob,email,address,phone)
 
-        return redirect(url_for('members'))
+        if validate_phone_number("phone"):
+            
+            database.add_member(name,dob,email,address,phone)
+
+            return redirect(url_for('members'))
+        
+        else:
+            error = 'Unsupported phone type! Supported format: (xxx) xxx-xxxx, (xxx)xxxxxxx, xxx-xxx-xxxx,  xxxxxxxxxx'
+            return render_template('add_member.html', error=error, phone=phone)
 
     else:    
         return render_template('add_member.html')
@@ -61,6 +101,10 @@ def add_trip():
         leader = request.form['leader']
         description = request.form['desc']
         
+        error = check_int(cost)
+        if error:
+            return render_template('add_trip.html', error=error,cost=cost)
+
         database.add_trip(name,start_date,length,cost,location,level,leader,description)
 
         return redirect(url_for('trips'))

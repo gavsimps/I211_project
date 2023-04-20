@@ -95,7 +95,11 @@ calendar
                 <tr>
                     <div class="form-group mb-2">
                         <th><label for="phone" class="sr-only">Phone:</label></th>
-                        <td><input type="text" id="phone" name="phone"></td>
+                        <td><input type="tel" id="phone" name="phone"></td>
+                        <th>{% if error %}
+                            <small style="color: red">{{error}}</small>
+                            {% endif %}
+                        </th>
                     </div>
                 </tr>
             </table>

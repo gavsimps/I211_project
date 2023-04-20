@@ -158,7 +158,11 @@ text boxes
                 <tr>
                     <div class="form-group mb-2">
                         <th><label for="cost" class="sr-only">Cost:</label></th>
-                        <td><input type="text" style="width: 600px" id="cost" name="cost"></td>
+                        <td><input pattern="\d*" type="text" style="width: 600px" id="cost" name="cost" value="{{cost}}"></td>
+                        <th>{% if error %}
+                            <h4 style="color: red">{{error}}</h4>
+                            {% endif %}
+                        </th>
                     </div>
                 </tr>
                 

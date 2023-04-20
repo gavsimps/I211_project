@@ -118,7 +118,7 @@ def remove_member_trip(trip_id, member_id):
     
 def get_attendees(trip_id):
     # '''Takes a trip_id and returns a list of dictionaries representing all of the members attending the trip with trip_id as its primary key'''
-    sql = "select t.id, m.name from trips as t join attend as a on a.trip_id = t.id join members as m on m.id = a.member_id where t.id = %s"
+    sql = "select m.name from members as m join attend as a on a.member_id = m.id join trips as t on t.id = a.trip_id where t.id = %s"
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
