@@ -14,7 +14,7 @@ text boxes
 {% if trip %}
 {% for trip_info in trip %}
 <div class="container-fluid mx-auto">
-    <h1 class="mt-5" style="color: rgb(0, 132, 255);">Edit Trip: {{trip['name']}}</h1>
+    <h1 class="mt-5" style="color: rgb(0, 132, 255);">Edit Trip: {{trip_info['name']}}</h1>
     <div class="container ">
         <form class="form-inline" action="{{url_for('edit_trip', trip_id=trip_id)}}" method="POST" name="member_form">
             <table>
@@ -102,7 +102,7 @@ text boxes
 <div class="container-fluid mx-auto">
     <h1 class="mt-5" style="color: rgb(0, 132, 255);">Add a New Trip</h1>
     <div class="container ">
-        <form class="form-inline" action="{{url_for('add_trip')}}" method="POST" name="member_form">
+        <form class="form-inline" action="{{url_for('add_trip')}}" method="POST" name="trip_form">
             <table>
                 <tr>   
                     <div class="form-group mb-2">

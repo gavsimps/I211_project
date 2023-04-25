@@ -30,5 +30,63 @@
     goes to trip form-->
 <a class="btn btn-primary btn-lg px-4 gap-3" href="{{url_for('edit_trip',trip_id=trp['id'])}}" role="button">Edit Trip</a>
 <a class="btn btn-danger btn-lg px-4 gap-3" href="{{url_for('del_trip',trip_id=trp['id'])}}" role="button">Delete Trip</a>
+
+<div>
+    <h1 class="mt-5">Attendees</h1>
+    <div class="container">
+    {% if attendees %}
+        <table class="table table-hover">
+            <thread>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Date of Birth</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Phone</th>        
+                </tr>
+            </thread>
+            <tbody>
+                {% for member in attendees %}
+                <tr>
+                    <td>{{member['name']}}</td>
+                    <td>{{member['dob']}}</td> 
+                    <td>{{member['email']}}</td>
+                    <td>{{member['address']}}</td> 
+                    <td>{{member['phone']}}</td>
+                    <td>
+                        <form action="{{url_for('del_attendee',trip_id=trp['id'],member_id=member['id'])}}" method="POST" name="delete_attendee">
+                        <button type="submit" value="Submit" class="btn btn-danger btn-lg px-4 gap-3">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> 
+    {% else %}
+        <h4>No members yet! Add one from below!</h4>
+    {% endif %}
+</div>
+
+<div>
+    <h2 class="mt-5">Add an Attendee</h1>
+        <form class="form-inline" action="{{url_for('add_attendee',trip_id=trp['id'])}}" method="POST" name="add_attendee">
+            <div class="row">
+                <div class="col-5">
+                    <select class="form-select" style="border-color: black;" id="attend" name="attend">
+                        <option disabled selected value>--Select a Member--</option>
+                        {% for member in members_in %}
+                        <option value="{{member['id']}}">{{member['name']}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-3">
+                    <button type="submit" value="Submit" class="btn btn-primary">Add Attendee</button>
+                </div>
+            </div>
+        </form>
+</div>
+
+
 {% endfor %}
 {% endblock %}

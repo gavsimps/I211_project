@@ -94,7 +94,7 @@ def delete_member(member_id):
             return cursor.fetchall()
     pass
     
-def add_member_trip(trip_id, member_id):
+def add_member_trip(member_id,trip_id):
     # '''Takes as input a trip_id and a member_id and inserts the appropriate data into the database
     # that indicates the member with member_id as a primary key is attending the trip with the trip_id as a primary key'''
     sql = "insert into attend (member_id,trip_id) values (%s,%s)"
@@ -105,7 +105,7 @@ def add_member_trip(trip_id, member_id):
             return cursor.fetchall()
     pass
     
-def remove_member_trip(trip_id, member_id):
+def remove_member_trip(member_id, trip_id):
     # '''Takes as input a trip_id and a member_id and deletes the data in the database that indicates that the member with member_id as a primary key 
     # is attending the trip with trip_id as a primary key.'''
     sql = "delete from attend where member_id = %s and trip_id = %s"
@@ -116,9 +116,18 @@ def remove_member_trip(trip_id, member_id):
             return cursor.fetchall()
     pass
     
+def remove_all_members(trip_id):
+    # Takes as input a trip_id and deletes the data in the attend table so a foreign key constraint doens't appear
+    sql = "delete from attend where trip_id = %s"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (trip_id))
+            return cursor.fetchall()
+
 def get_attendees(trip_id):
     # '''Takes a trip_id and returns a list of dictionaries representing all of the members attending the trip with trip_id as its primary key'''
-    sql = "select m.name from members as m join attend as a on a.member_id = m.id join trips as t on t.id = a.trip_id where t.id = %s"
+    sql = "select distinct * from members as m join attend as a on a.member_id = m.id join trips as t on t.id = a.trip_id where t.id = %s"
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:

@@ -94,8 +94,8 @@ calendar
 
                 <tr>
                     <div class="form-group mb-2">
-                        <th><label for="phone" class="sr-only">Phone:</label></th>
-                        <td><input type="tel" id="phone" name="phone"></td>
+                        <th><label for="tel" class="sr-only">Phone:</label></th>
+                        <td><input type="tel" id="telle" maxlength="12"></td>
                         <th>{% if error %}
                             <small style="color: red">{{error}}</small>
                             {% endif %}
@@ -109,5 +109,16 @@ calendar
         </form>
     </div>
 </div>
+
+<script>
+var tele = document.querySelector('#telle');
+
+tele.addEventListener('keyup', function(e){
+  if (event.key != 'Backspace' && (tele.value.length === 3 || tele.value.length === 7)){
+  tele.value += '-';
+  }
+});
+</script>
+
 <!-- {% endif %} -->
 {% endblock %}

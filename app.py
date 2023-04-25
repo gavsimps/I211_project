@@ -104,7 +104,9 @@ def add_trip():
 def trip(trip_id=None):
     if trip_id :
         trip_info = database.get_trip(trip_id)
-        return render_template('trip.html',trip_info=trip_info,trip=database.get_trip(trip_id))
+        attendees = database.get_attendees(trip_id)
+        members_in = database.get_members()
+        return render_template('trip.html',trip_info=trip_info,trip=database.get_trip(trip_id),attendees=attendees,members_in=members_in)
     else:
         trips_info = database.get_trips()
         return render_template('trips.html',trips_info=trips_info)
@@ -122,8 +124,12 @@ def edit_trip(trip_id=None):
         level = request.form['level']
         leader = request.form['leader']
         description = request.form['desc']
-        
-        database.update_trip(name,start_date,length,cost,location,level,leader,description,trip_id)
+
+        error = check_int(cost)
+        if error:
+            return render_template('add_trip.html',trip=database.get_trip(trip_id),trips=trips,trip_id=trip_id,error=error,cost=cost)
+        else:
+            database.update_trip(name,start_date,length,cost,location,level,leader,description,trip_id)
 
         return redirect(url_for('trips'))
     
@@ -131,14 +137,35 @@ def edit_trip(trip_id=None):
         trips = database.get_trip(trip_id)
         return render_template('add_trip.html',trip=database.get_trip(trip_id),trips=trips,trip_id=trip_id)
 
+# DELETE TRIP WITH FORIEGN KEYS
 @app.route('/trips/<trip_id>/delete', methods=['GET','POST'])
 def del_trip(trip_id=None):
     
     if request.method == 'POST':
         
+        database.remove_all_members(trip_id)
         database.delete_trip(trip_id)
         
         return redirect(url_for('trips'))
     else:
         trips = database.get_trip(trip_id)
         return render_template('del_trip.html',trip=database.get_trip(trip_id),trips=trips,trip_id=trip_id)
+
+
+
+# NEW ATTENDEES TABLE IMPLEMENTATION
+@app.route('/trips/<trip_id>/attendees/add', methods=['GET','POST'])
+def add_attendee(trip_id=None):
+    if request.method == 'POST':
+        member_id = request.form['attend']
+
+        joined = database.add_member_trip(member_id,trip_id)
+
+        return redirect(url_for('trip',joined=joined,trip_id=trip_id))
+    
+@app.route('/trips/<trip_id>/attendees/<member_id>/delete', methods=['GET','POST'])
+def del_attendee(trip_id=None,member_id=None):
+    if request.method == 'POST':
+        
+        database.remove_member_trip(member_id,trip_id)
+        return redirect(url_for('trip',trip_id=trip_id))
