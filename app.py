@@ -137,17 +137,21 @@ def edit_trip(trip_id=None):
         trips = database.get_trip(trip_id)
         return render_template('add_trip.html',trip=database.get_trip(trip_id),trips=trips,trip_id=trip_id)
 
+# DELETE TRIP WITH FORIEGN KEYS
 @app.route('/trips/<trip_id>/delete', methods=['GET','POST'])
 def del_trip(trip_id=None):
     
     if request.method == 'POST':
         
+        database.remove_all_members(trip_id)
         database.delete_trip(trip_id)
         
         return redirect(url_for('trips'))
     else:
         trips = database.get_trip(trip_id)
         return render_template('del_trip.html',trip=database.get_trip(trip_id),trips=trips,trip_id=trip_id)
+
+
 
 # NEW ATTENDEES TABLE IMPLEMENTATION
 @app.route('/trips/<trip_id>/attendees/add', methods=['GET','POST'])
