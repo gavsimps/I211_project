@@ -105,7 +105,7 @@ def add_member_trip(member_id,trip_id):
             return cursor.fetchall()
     pass
     
-def remove_member_trip(trip_id, member_id):
+def remove_member_trip(member_id, trip_id):
     # '''Takes as input a trip_id and a member_id and deletes the data in the database that indicates that the member with member_id as a primary key 
     # is attending the trip with trip_id as a primary key.'''
     sql = "delete from attend where member_id = %s and trip_id = %s"

@@ -158,3 +158,12 @@ def add_attendee(trip_id=None):
         joined = database.add_member_trip(member_id,trip_id)
 
         return redirect(url_for('trip',joined=joined,trip_id=trip_id))
+    
+@app.route('/trips/<trip_id>/attendees/add', methods=['GET','POST'])
+def del_attendee(trip_id=None):
+    if request.method == 'POST':
+
+        member_id = request.form[]
+        database.remove_member_trip(member_id,trip_id)
+
+    return redirect(url_for('trip',trip_id=trip_id))

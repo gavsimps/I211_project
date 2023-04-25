@@ -52,7 +52,11 @@
                     <td>{{member['email']}}</td>
                     <td>{{member['address']}}</td> 
                     <td>{{member['phone']}}</td>
-                    <td><a class="btn btn-danger btn-lg px-4 gap-3" href="" role="button">Delete</a></td>
+                    <td>
+                        <form action="{{url_for('del_attendee',trip_id=trp['id'],member_id=member['id'])}}" method="POST" name="delete_attendee">
+                        <button type="submit" value="Submit" class="btn btn-danger btn-lg px-4 gap-3">Delete</button>
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
