@@ -142,3 +142,4 @@ def del_trip(trip_id=None):
     else:
         trips = database.get_trip(trip_id)
         return render_template('del_trip.html',trip=database.get_trip(trip_id),trips=trips,trip_id=trip_id)
+
