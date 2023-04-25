@@ -104,7 +104,8 @@ def add_trip():
 def trip(trip_id=None):
     if trip_id :
         trip_info = database.get_trip(trip_id)
-        return render_template('trip.html',trip_info=trip_info,trip=database.get_trip(trip_id))
+        attendees = database.get_attendees(trip_id)
+        return render_template('trip.html',trip_info=trip_info,trip=database.get_trip(trip_id),attendees=attendees)
     else:
         trips_info = database.get_trips()
         return render_template('trips.html',trips_info=trips_info)
@@ -122,8 +123,12 @@ def edit_trip(trip_id=None):
         level = request.form['level']
         leader = request.form['leader']
         description = request.form['desc']
-        
-        database.update_trip(name,start_date,length,cost,location,level,leader,description,trip_id)
+
+        error = check_int(cost)
+        if error:
+            return render_template('add_trip.html',trip=database.get_trip(trip_id),trips=trips,trip_id=trip_id,error=error,cost=cost)
+        else:
+            database.update_trip(name,start_date,length,cost,location,level,leader,description,trip_id)
 
         return redirect(url_for('trips'))
     

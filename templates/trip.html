@@ -31,4 +31,34 @@
 <a class="btn btn-primary btn-lg px-4 gap-3" href="{{url_for('edit_trip',trip_id=trp['id'])}}" role="button">Edit Trip</a>
 <a class="btn btn-danger btn-lg px-4 gap-3" href="{{url_for('del_trip',trip_id=trp['id'])}}" role="button">Delete Trip</a>
 {% endfor %}
+
+<div>
+    <h1 class="mt-5">Attendees</h1>
+    <div class="container">
+        <table class="table table-hover">
+            <thread>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Date of Birth</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Phone</th>        
+                </tr>
+            </thread>
+            <tbody>
+                {% for member in attendees %}
+                <tr>
+                    <td>{{member['name']}}</td>
+                    <td>{{member['dob']}}</td> 
+                    <td>{{member['email']}}</td>
+                    <td>{{member['address']}}</td> 
+                    <td>{{member['phone']}}</td>
+                    <td><a class="btn btn-danger btn-lg px-4 gap-3" href="{{url_for()}}" role="button">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> 
+
+
 {% endblock %}
