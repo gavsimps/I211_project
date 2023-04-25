@@ -30,14 +30,9 @@ def check_int(cost):
 
 # PHONE FOR ADD/EDIT USER
 def validate_phone_number(client_subitted_phone_number):
-    # error = ''
     phone_regex = '^\d{3}-\d{3}-\d{4}$'
     match = re.search(phone_regex, client_subitted_phone_number)
-    return match
-    # if match:
-    #     return error
-    # else:
-    #     error = 'Unsupported phone type! Supported format: xxx-xxx-xxxx' 
+    return match 
 
 
 # APPLICATION
