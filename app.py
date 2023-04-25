@@ -105,7 +105,8 @@ def trip(trip_id=None):
     if trip_id :
         trip_info = database.get_trip(trip_id)
         attendees = database.get_attendees(trip_id)
-        return render_template('trip.html',trip_info=trip_info,trip=database.get_trip(trip_id),attendees=attendees)
+        attend = database.get_member_attendee()
+        return render_template('trip.html',trip_info=trip_info,trip=database.get_trip(trip_id),attendees=attendees,attend=attend)
     else:
         trips_info = database.get_trips()
         return render_template('trips.html',trips_info=trips_info)
@@ -148,3 +149,7 @@ def del_trip(trip_id=None):
         trips = database.get_trip(trip_id)
         return render_template('del_trip.html',trip=database.get_trip(trip_id),trips=trips,trip_id=trip_id)
 
+# NEW ATTENDEES TABLE IMPLEMENTATION
+@app.route('/trips/<trip_id>/attendees/add')
+def add_attendee():
+    return redirect(url_for('trips/<trip_id>'))

@@ -53,12 +53,25 @@
                     <td>{{member['email']}}</td>
                     <td>{{member['address']}}</td> 
                     <td>{{member['phone']}}</td>
-                    <td><a class="btn btn-danger btn-lg px-4 gap-3" href="{{url_for()}}" role="button">Delete</a></td>
+                    <td><a class="btn btn-danger btn-lg px-4 gap-3" href="" role="button">Delete</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div> 
+</div>
+
+<div>
+    <h2 class="mt-5">Add an Attendee</h1>
+        <form class="form-inline" action="" method="POST" name="attendee_add">
+            <select class="form-control" style="border-color: black;" id="attend" name="attend">
+                <option disabled selected value></option>
+                {% for member in attend %}
+                <option value="{{member['name']}}">{{member['name']}}</option>
+                {% endfor %}
+            </select>
+</div>
+
 
 
 {% endblock %}
