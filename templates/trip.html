@@ -34,6 +34,7 @@
 <div>
     <h1 class="mt-5">Attendees</h1>
     <div class="container">
+    {% if attendees %}
         <table class="table table-hover">
             <thread>
                 <tr>
@@ -62,6 +63,9 @@
             </tbody>
         </table>
     </div> 
+    {% else %}
+        <h4>No members yet! Add one from below!</h4>
+    {% endif %}
 </div>
 
 <div>
