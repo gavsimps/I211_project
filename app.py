@@ -16,8 +16,6 @@ import database
 
 # DATA VALIDATION
 
-# test on new desktop
-
 # COST FOR ADD/EDIT TRIP
 def check_int(cost):
     error=''
