@@ -94,7 +94,7 @@ def delete_member(member_id):
             return cursor.fetchall()
     pass
     
-def add_member_trip(trip_id, member_id):
+def add_member_trip(member_id,trip_id):
     # '''Takes as input a trip_id and a member_id and inserts the appropriate data into the database
     # that indicates the member with member_id as a primary key is attending the trip with the trip_id as a primary key'''
     sql = "insert into attend (member_id,trip_id) values (%s,%s)"
@@ -118,7 +118,7 @@ def remove_member_trip(trip_id, member_id):
     
 def get_attendees(trip_id):
     # '''Takes a trip_id and returns a list of dictionaries representing all of the members attending the trip with trip_id as its primary key'''
-    sql = "select * from members as m join attend as a on a.member_id = m.id join trips as t on t.id = a.trip_id where t.id = %s"
+    sql = "select distinct * from members as m join attend as a on a.member_id = m.id join trips as t on t.id = a.trip_id where t.id = %s"
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
@@ -128,7 +128,7 @@ def get_attendees(trip_id):
 
 def get_member_attendee():
     # '''Takes a trip_id and returns a list of dictionaries representing all of the members attending the trip with trip_id as its primary key'''
-    sql = "select distinct m.name from members as m join attend as a on a.member_id = m.id"
+    sql = "select distinct m.id, m.name from members as m join attend as a on a.member_id = m.id"
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:

@@ -150,6 +150,11 @@ def del_trip(trip_id=None):
         return render_template('del_trip.html',trip=database.get_trip(trip_id),trips=trips,trip_id=trip_id)
 
 # NEW ATTENDEES TABLE IMPLEMENTATION
-@app.route('/trips/<trip_id>/attendees/add')
-def add_attendee():
-    return redirect(url_for('trips/<trip_id>'))
+@app.route('/trips/<trip_id>/attendees/add', methods=['GET','POST'])
+def add_attendee(trip_id=None):
+    if request.method == 'POST':
+        member_id = request.form['attend']
+
+        joined = database.add_member_trip(member_id,trip_id)
+
+        return redirect(url_for('trip',joined=joined,trip_id=trip_id))

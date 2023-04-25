@@ -30,7 +30,6 @@
     goes to trip form-->
 <a class="btn btn-primary btn-lg px-4 gap-3" href="{{url_for('edit_trip',trip_id=trp['id'])}}" role="button">Edit Trip</a>
 <a class="btn btn-danger btn-lg px-4 gap-3" href="{{url_for('del_trip',trip_id=trp['id'])}}" role="button">Delete Trip</a>
-{% endfor %}
 
 <div>
     <h1 class="mt-5">Attendees</h1>
@@ -63,15 +62,23 @@
 
 <div>
     <h2 class="mt-5">Add an Attendee</h1>
-        <form class="form-inline" action="" method="POST" name="attendee_add">
-            <select class="form-control" style="border-color: black;" id="attend" name="attend">
-                <option disabled selected value></option>
-                {% for member in attend %}
-                <option value="{{member['name']}}">{{member['name']}}</option>
-                {% endfor %}
-            </select>
+        <form class="form-inline" action="{{url_for('add_attendee',trip_id=trp['id'])}}" method="POST" name="add_attendee">
+            <div class="row">
+                <div class="col-5">
+                    <select class="form-select" style="border-color: black;" id="attend" name="attend">
+                        <option disabled selected value>--Select a Member--</option>
+                        {% for member in attend %}
+                        <option value="{{member['id']}}">{{member['name']}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-3">
+                    <button type="submit" value="Submit" class="btn btn-primary">Add Attendee</button>
+                </div>
+            </div>
+        </form>
 </div>
 
 
-
+{% endfor %}
 {% endblock %}
