@@ -126,15 +126,6 @@ def get_attendees(trip_id):
             return cursor.fetchall()
     pass
 
-def get_member_attendee():
-    # '''Takes a trip_id and returns a list of dictionaries representing all of the members attending the trip with trip_id as its primary key'''
-    sql = "select distinct m.id, m.name from members as m join attend as a on a.member_id = m.id"
-    conn = get_connection()
-    with conn:
-        with conn.cursor() as cursor:
-            cursor.execute(sql)
-            return cursor.fetchall()
-
 if __name__ == '__main__':
 #add more test code here to make sure all your functions are working correctly
     try:

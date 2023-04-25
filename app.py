@@ -105,8 +105,8 @@ def trip(trip_id=None):
     if trip_id :
         trip_info = database.get_trip(trip_id)
         attendees = database.get_attendees(trip_id)
-        attend = database.get_member_attendee()
-        return render_template('trip.html',trip_info=trip_info,trip=database.get_trip(trip_id),attendees=attendees,attend=attend)
+        members_in = database.get_members()
+        return render_template('trip.html',trip_info=trip_info,trip=database.get_trip(trip_id),attendees=attendees,members_in=members_in)
     else:
         trips_info = database.get_trips()
         return render_template('trips.html',trips_info=trips_info)
@@ -159,11 +159,9 @@ def add_attendee(trip_id=None):
 
         return redirect(url_for('trip',joined=joined,trip_id=trip_id))
     
-@app.route('/trips/<trip_id>/attendees/add', methods=['GET','POST'])
-def del_attendee(trip_id=None):
+@app.route('/trips/<trip_id>/attendees/<member_id>/delete', methods=['GET','POST'])
+def del_attendee(trip_id=None,member_id=None):
     if request.method == 'POST':
-
-        member_id = request.form[]
+        
         database.remove_member_trip(member_id,trip_id)
-
-    return redirect(url_for('trip',trip_id=trip_id))
+        return redirect(url_for('trip',trip_id=trip_id))
