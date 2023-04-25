@@ -30,17 +30,14 @@ def check_int(cost):
 
 # PHONE FOR ADD/EDIT USER
 def validate_phone_number(client_subitted_phone_number):
-    if "(" in client_subitted_phone_number:
-        if '-' in client_subitted_phone_number:
-            return re.match(r"\(\d{3}\) \d{3}-\d{4}", client_subitted_phone_number)
-        else:
-            return re.match(r"\(\d{3}\)\d{3}\d{4}", client_subitted_phone_number)
-    else:
-        if '-' in client_subitted_phone_number:
-            return re.match(r"^\d{3}-\d{3}-\d{4}$", client_subitted_phone_number)
-        else:        
-            return re.match(r"^\\?[1-9][0-9]{7,14}$", client_subitted_phone_number)
-
+    # error = ''
+    phone_regex = '^\d{3}-\d{3}-\d{4}$'
+    match = re.search(phone_regex, client_subitted_phone_number)
+    return match
+    # if match:
+    #     return error
+    # else:
+    #     error = 'Unsupported phone type! Supported format: xxx-xxx-xxxx' 
 
 
 # APPLICATION
@@ -65,15 +62,12 @@ def add_member():
         address = request.form['addy']
         phone = request.form['phone']
 
-        if validate_phone_number("phone"):
-            
+        if validate_phone_number(phone):
             database.add_member(name,dob,email,address,phone)
-
             return redirect(url_for('members'))
-        
         else:
-            error = 'Unsupported phone type! Supported format: (xxx) xxx-xxxx, (xxx)xxxxxxx, xxx-xxx-xxxx,  xxxxxxxxxx'
-            return render_template('add_member.html', error=error, phone=phone)
+            error = 'Unsupported phone type! Supported format: xxx-xxx-xxxx'
+            return render_template('add_member.html', error=error)
 
     else:    
         return render_template('add_member.html')
