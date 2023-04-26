@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Member Info{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    {% for mem in member_info %}
+    <div>
+        <h1 class="mt-5" style="color: rgb(0, 120, 255);">{{mem['name']}}</h1> 
+    </div>
+
+        <div class="row">
+            <h4 class="col-4 col-md-2">Date of Birth:</h4>
+            <div class="col-4 col-md-2">
+                {{mem['dob']}}
+            </div>
+        </div>
+
+        <div class="row">
+            <h4 class="col-4 col-md-2">Email:</h4>
+            <div class="col-4 col-md-2">
+                {{mem['email']}}
+            </div>
+        </div>
+
+        <div class="row">
+            <h4 class="col-4 col-md-2">Address:</h4>
+            <div class="col-4 col-md-2">
+                {{mem['address']}}
+            </div>
+        </div>
+
+        <div class="row">
+            <h4 class="col-4 col-md-2">Phone:</h4>
+            <div class="col-4 col-md-2">
+                {{mem['phone']}}
+            </div>
+        </div>
+<div class="row">
+    <div class="col">
+        <a class="btn btn-primary btn-lg px-4 gap-3" href="{{url_for('edit_member',member_id=mem['id'])}}" role="button">Edit Member</a>
+    </div>
+    <div class="col">
+    <form action="" method="POST" name="delete_member">
+        <button type="submit" value="Submit" class="btn btn-danger btn-lg px-4 gap-3">Delete</button>
+    </form>
+    </div>
+</div>
+</div>
+
+{% endfor %}
+{% endblock %}

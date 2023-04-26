@@ -16,7 +16,7 @@
         <tbody>
             {% for m in member_info %}
             <tr>
-                <td>{{m['name']}}</td>
+                <td><a href="{{url_for('member', member_id=m['id'])}}">{{m['name']}}</a></td>
                 <td>{{m['dob']}}</td> 
                 <td>{{m['email']}}</td>
                 <td>{{m['address']}}</td> 

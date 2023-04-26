@@ -47,6 +47,7 @@ def members():
     member_info = database.get_members()
     return render_template('members.html',member_info=member_info)
 
+# ADD MEMBER
 @app.route('/members/add', methods=['GET','POST'])
 def add_member():
     if request.method == 'POST':
@@ -66,6 +67,37 @@ def add_member():
 
     else:    
         return render_template('add_member.html')
+
+# MEMBER
+@app.route('/members/<member_id>')
+def member(member_id=None):
+    if member_id :
+        member_info = database.get_member(member_id)
+        return render_template('member.html',member_info=member_info)
+    else:
+        members_info = database.get_trips()
+        return render_template('members.html',members_info=members_info)
+    
+@app.route('/members/<member_id>/edit', methods=['GET','POST'])
+def edit_member(member_id=None):
+    if request.method == 'POST':
+
+        name = request.form['name']
+        dob = request.form['dob']
+        email = request.form['email']
+        address = request.form['addy']
+        phone = request.form['telle']
+
+        if validate_phone_number(phone):
+            database.edit_member(name,dob,email,address,phone)
+            return redirect(url_for('members'))
+        else:
+            error = 'Unsupported phone type! Supported format: xxx-xxx-xxxx'
+            return render_template('add_member.html', error=error,member_id=member_id)
+    
+    else: 
+        member_info = database.get_member(member_id)
+        return render_template('add_member.html',member_info=member_info,member_id=member_id,member=database.get_member(member_id))
 
 
 # TRIPS

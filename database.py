@@ -64,6 +64,14 @@ def get_members():
         with conn.cursor() as cursor:
             cursor.execute(sql)
             return cursor.fetchall()
+        
+def get_member(member_id):
+    sql = "select * from members where id = %s"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (member_id))
+            return cursor.fetchall()
 
 def add_member(name,dob,email,address,phone):
     # '''Takes as input all of the data for a member and adds a new member to the member table'''
