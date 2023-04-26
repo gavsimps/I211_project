@@ -55,7 +55,7 @@ def add_member():
         dob = request.form['dob']
         email = request.form['email']
         address = request.form['addy']
-        phone = request.form['phone']
+        phone = request.form['telle']
 
         if validate_phone_number(phone):
             database.add_member(name,dob,email,address,phone)
