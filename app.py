@@ -186,15 +186,12 @@ def del_trip(trip_id=None):
 
 
 # NEW ATTENDEES TABLE IMPLEMENTATION
-@app.route('/trips/<trip_id>/attendees/add', methods=['GET','POST'])
+@app.route('/trips/<trip_id>/attendees/add', methods=['POST'])
 def add_attendee(trip_id=None):
-    if request.method == 'POST':
-        member_id = request.form['attend']
+    member_id = request.form['attend']
+    joined = database.add_member_trip(member_id,trip_id)
+    return redirect(url_for('trip',joined=joined,trip_id=trip_id))
 
-        joined = database.add_member_trip(member_id,trip_id)
-
-        return redirect(url_for('trip',joined=joined,trip_id=trip_id))
-    
 @app.route('/trips/<trip_id>/attendees/<member_id>/delete', methods=['GET','POST'])
 def del_attendee(trip_id=None,member_id=None):
     if request.method == 'POST':
